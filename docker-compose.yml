@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  php:
+    build:
+      context: ./backend
+    container_name: recipebook_php
+    volumes:
+      - ./backend/public:/var/www/html
+    networks:
+      - recipebook_network
+    ports:
+      - "8000:80"
+
+  db:
+    image: mariadb:latest
+    container_name: recipebook_db
+    environment:
+      MYSQL_DATABASE: recipebook
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - dbdata:/var/lib/mysql
+    networks:
+      - recipebook_network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: recipebook_frontend
+    volumes:
+      - ./frontend:/app
+    networks:
+      - recipebook_network
+    ports:
+      - "5173:5173" 
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: recipebook_phpmyadmin
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: secret
+    ports:
+      - "8080:80"
+    networks:
+      - recipebook_network
+
+networks:
+  recipebook_network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
