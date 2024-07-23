@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Home from './components/Home';
+import Login from './components/Login';
+import Register from './components/Register';
 
-function App() {
+
+const App = () => {
+  const [overlay, setOverlay] = useState(null);
+
+  const handleOverlay = (type) => {
+    setOverlay(type);
+  };
+
+  const closeOverlay = () => {
+    setOverlay(null);
+  };
+
   return (
     <div className="App">
-      <h1>Hello, RecipeBook!hshshsh</h1>
+      <Home onLoginClick={() => handleOverlay('login')} onRegisterClick={() => handleOverlay('register')} />
+      {overlay === 'login' && <Login closeOverlay={closeOverlay} />}
+      {overlay === 'register' && <Register closeOverlay={closeOverlay} />}
     </div>
   );
-}
+};
 
 export default App;
