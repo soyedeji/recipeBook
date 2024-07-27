@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import '../styles/RecipeForm.css';
 
-const RecipeForm = ({ onSubmit, initialData = {} }) => {
+const RecipeForm = ({ onSubmit, initialData = {}, closeOverlay }) => {
   const [title, setTitle] = useState(initialData.title || '');
   const [description, setDescription] = useState(initialData.description || '');
   const [ingredients, setIngredients] = useState(initialData.ingredients || '');
@@ -21,30 +22,35 @@ const RecipeForm = ({ onSubmit, initialData = {} }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>{initialData.id ? 'Edit Recipe' : 'Add Recipe'}</h2>
-      <div>
-        <label>Title</label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+    <div className="overlay">
+      <div className="overlay-content">
+        <button className="close-button" onClick={closeOverlay}>X</button>
+        <form onSubmit={handleSubmit} className="recipe-form">
+          <h2>{initialData.id ? 'Edit Recipe' : 'Add Recipe'}</h2>
+          <div className="form-group">
+            <label>Title</label>
+            <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Description</label>
+            <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Ingredients</label>
+            <textarea value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Steps</label>
+            <textarea value={steps} onChange={(e) => setSteps(e.target.value)} required />
+          </div>
+          <div className="form-group">
+            <label>Image</label>
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          </div>
+          <button type="submit" className="submit-button">{initialData.id ? 'Update' : 'Add'}</button>
+        </form>
       </div>
-      <div>
-        <label>Description</label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
-      </div>
-      <div>
-        <label>Ingredients</label>
-        <textarea value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
-      </div>
-      <div>
-        <label>Steps</label>
-        <textarea value={steps} onChange={(e) => setSteps(e.target.value)} required />
-      </div>
-      <div>
-        <label>Image</label>
-        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
-      </div>
-      <button type="submit">{initialData.id ? 'Update' : 'Add'}</button>
-    </form>
+    </div>
   );
 };
 

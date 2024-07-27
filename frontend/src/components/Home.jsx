@@ -60,7 +60,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       </nav>
       {error && <p className="error">{error}</p>}
       {showRecipeForm && (
-        <RecipeForm onSubmit={handleRecipeSubmit} />
+        <RecipeForm onSubmit={handleRecipeSubmit} closeOverlay={() => setShowRecipeForm(false)} />
       )}
       <RecipeList />
     </div>
