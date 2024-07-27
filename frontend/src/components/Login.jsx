@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
+import '../styles/Auth.css'; // Include the new styles
 
 const Login = ({ closeOverlay, onLogin }) => {
   const [username, setUsername] = useState('');
@@ -41,9 +42,9 @@ const Login = ({ closeOverlay, onLogin }) => {
     <div className="overlay">
       <div className="overlay-content">
         <button className="close-button" onClick={closeOverlay}>X</button>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           <h2>Login</h2>
-          <div>
+          <div className="form-group">
             <label>Username</label>
             <input
               type="text"
@@ -52,7 +53,7 @@ const Login = ({ closeOverlay, onLogin }) => {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -61,7 +62,7 @@ const Login = ({ closeOverlay, onLogin }) => {
               required
             />
           </div>
-          <button type="submit">Login</button>
+          <button type="submit" className="submit-button">Login</button>
         </form>
       </div>
     </div>

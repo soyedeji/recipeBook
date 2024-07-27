@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
+import '../styles/Auth.css'; // Include the new styles
 
 const Register = ({ closeOverlay }) => {
   const [username, setUsername] = useState('');
@@ -44,9 +45,9 @@ const Register = ({ closeOverlay }) => {
     <div className="overlay">
       <div className="overlay-content">
         <button className="close-button" onClick={closeOverlay}>X</button>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="auth-form">
           <h2>Register</h2>
-          <div>
+          <div className="form-group">
             <label>Firstname</label>
             <input
               type="text"
@@ -55,7 +56,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Lastname</label>
             <input
               type="text"
@@ -64,7 +65,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Username</label>
             <input
               type="text"
@@ -73,7 +74,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -82,14 +83,14 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Role</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="foodie">Foodie</option>
               <option value="chef">Chef</option>
             </select>
           </div>
-          <button type="submit">Register</button>
+          <button type="submit" className="submit-button">Register</button>
         </form>
       </div>
     </div>
