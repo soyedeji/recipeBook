@@ -11,17 +11,14 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
     setShowRecipeForm(true);
   };
 
-  const handleRecipeSubmit = async (recipe) => {
+  const handleRecipeSubmit = async (formData) => {
     try {
       const response = await fetch('http://localhost:8000/addRecipe.php', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(recipe),
+        body: formData,
         credentials: 'include', // Ensure cookies are included in the request
       });
-      
+
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }

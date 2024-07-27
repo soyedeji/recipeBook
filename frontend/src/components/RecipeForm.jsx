@@ -5,18 +5,19 @@ const RecipeForm = ({ onSubmit, initialData = {} }) => {
   const [description, setDescription] = useState(initialData.description || '');
   const [ingredients, setIngredients] = useState(initialData.ingredients || '');
   const [steps, setSteps] = useState(initialData.steps || '');
-  const [image, setImage] = useState(initialData.image || '');
+  const [image, setImage] = useState(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit({
-      ...initialData,
-      title,
-      description,
-      ingredients,
-      steps,
-      image,
-    });
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('description', description);
+    formData.append('ingredients', ingredients);
+    formData.append('steps', steps);
+    if (image) {
+      formData.append('image', image);
+    }
+    onSubmit(formData);
   };
 
   return (
@@ -39,8 +40,8 @@ const RecipeForm = ({ onSubmit, initialData = {} }) => {
         <textarea value={steps} onChange={(e) => setSteps(e.target.value)} required />
       </div>
       <div>
-        <label>Image URL</label>
-        <input type="text" value={image} onChange={(e) => setImage(e.target.value)} />
+        <label>Image</label>
+        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
       </div>
       <button type="submit">{initialData.id ? 'Update' : 'Add'}</button>
     </form>
