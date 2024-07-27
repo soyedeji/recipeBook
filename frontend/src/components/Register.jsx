@@ -6,7 +6,7 @@ const Register = ({ closeOverlay }) => {
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('foodie'); // default role to foodie
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,6 +24,7 @@ const Register = ({ closeOverlay }) => {
           role,
         }),
       });
+
       const data = await response.json();
       alert(data.message);
       if (data.status === 'success') {
@@ -31,7 +32,7 @@ const Register = ({ closeOverlay }) => {
         setPassword('');
         setFirstname('');
         setLastname('');
-        setRole('user');
+        setRole('foodie');
         closeOverlay();
       }
     } catch (error) {
@@ -84,7 +85,7 @@ const Register = ({ closeOverlay }) => {
           <div>
             <label>Role</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
-              <option value="user">User</option>
+              <option value="foodie">Foodie</option>
               <option value="chef">Chef</option>
             </select>
           </div>

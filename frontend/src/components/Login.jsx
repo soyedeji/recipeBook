@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
 
-const Login = ({ closeOverlay }) => {
+const Login = ({ closeOverlay, onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -17,10 +17,17 @@ const Login = ({ closeOverlay }) => {
           username,
           password,
         }),
+        credentials: 'include', // Ensure cookies are included in the request
       });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
       const data = await response.json();
       alert(data.message);
       if (data.status === 'success') {
+        onLogin(data.user); // Pass user data to the App component
         setUsername('');
         setPassword('');
         closeOverlay();
