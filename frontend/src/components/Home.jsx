@@ -10,33 +10,33 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/getRecipes.php', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
+  const fetchRecipes = async () => {
+    try {
+      const response = await fetch('http://localhost:8000/getRecipes.php', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+      });
 
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        if (data.status === 'success') {
-          setRecipes(data.recipes);
-        } else {
-          setError(data.message);
-        }
-      } catch (error) {
-        console.error('There was an error fetching the recipes!', error);
-        setError('An unexpected error occurred. Please try again.');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
       }
-    };
 
+      const data = await response.json();
+      if (data.status === 'success') {
+        setRecipes(data.recipes);
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error('There was an error fetching the recipes!', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+  };
+
+  useEffect(() => {
     fetchRecipes();
   }, []);
 
@@ -84,10 +84,16 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
     setSelectedRecipe(null);
   };
 
+  const handleReload = () => {
+    setSelectedRecipe(null);
+    setShowRecipeForm(false);
+    fetchRecipes();
+  };
+
   return (
     <div className="home-container">
       <nav>
-        <h1>RecipeBook</h1>
+        <h1 onClick={handleReload} style={{ cursor: 'pointer' }}>RecipeBook</h1>
         <div className="buttons">
           {!user && (
             <>
