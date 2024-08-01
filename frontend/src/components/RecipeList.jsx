@@ -81,13 +81,6 @@ const RecipeList = ({ user, onRecipeSelect }) => {
               <h3 className="recipe-title">{recipe.title}</h3>
               <p className="recipe-description">{truncateText(recipe.description, 20)}</p>
             </div>
-            {user && user.role === 'chef' && user.id === recipe.user_id && (
-              <div className="recipe-actions">
-                <button onClick={(e) => { e.stopPropagation(); handleEdit(recipe); }}>Edit</button>
-                <button onClick={(e) => { e.stopPropagation(); handleDelete(recipe.id); }}>Delete</button>
-              </div>
-            )}
-            <button className="favorite-button">❤️</button>
           </div>
         ))
       ) : (

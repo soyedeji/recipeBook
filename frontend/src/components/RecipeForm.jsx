@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/RecipeForm.css';
+import '../styles/Overlay.css';
 
 const RecipeForm = ({ onSubmit, initialData = {}, closeOverlay }) => {
   const [title, setTitle] = useState(initialData.title || '');
@@ -18,6 +18,9 @@ const RecipeForm = ({ onSubmit, initialData = {}, closeOverlay }) => {
     if (image) {
       formData.append('image', image);
     }
+    if (initialData.id) {
+      formData.append('id', initialData.id);
+    }
     onSubmit(formData);
   };
 
@@ -25,29 +28,29 @@ const RecipeForm = ({ onSubmit, initialData = {}, closeOverlay }) => {
     <div className="overlay">
       <div className="overlay-content">
         <button className="close-button" onClick={closeOverlay}>X</button>
-        <form onSubmit={handleSubmit} className="recipe-form">
+        <form onSubmit={handleSubmit}>
           <h2>{initialData.id ? 'Edit Recipe' : 'Add Recipe'}</h2>
-          <div className="form-group">
-            <label>Recipe Name</label>
+          <div>
+            <label>Title</label>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
           </div>
-          <div className="form-group">
+          <div>
             <label>Description</label>
             <textarea value={description} onChange={(e) => setDescription(e.target.value)} required />
           </div>
-          <div className="form-group">
+          <div>
             <label>Ingredients</label>
             <textarea value={ingredients} onChange={(e) => setIngredients(e.target.value)} required />
           </div>
-          <div className="form-group">
+          <div>
             <label>Steps</label>
             <textarea value={steps} onChange={(e) => setSteps(e.target.value)} required />
           </div>
-          <div className="form-group">
+          <div>
             <label>Image</label>
             <input type="file" onChange={(e) => setImage(e.target.files[0])} />
           </div>
-          <button type="submit" className="submit-button">{initialData.id ? 'Update' : 'Add'}</button>
+          <button type="submit">{initialData.id ? 'Update' : 'Add'}</button>
         </form>
       </div>
     </div>
