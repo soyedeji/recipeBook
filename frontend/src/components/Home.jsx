@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import RecipeList from './RecipeList';
+import RecipeDetail from './RecipeDetail';
 import RecipeForm from './RecipeForm';
 import '../styles/Home.css';
 
 const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
   const [showRecipeForm, setShowRecipeForm] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [error, setError] = useState(null);
 
   const handleAddRecipeClick = () => {
@@ -16,7 +18,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       const response = await fetch('http://localhost:8000/addRecipe.php', {
         method: 'POST',
         body: formData,
-        credentials: 'include', // Ensure cookies are included in the request
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -34,6 +36,14 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       console.error('There was an error adding the recipe!', error);
       setError('An unexpected error occurred. Please try again.');
     }
+  };
+
+  const handleRecipeSelect = (recipe) => {
+    setSelectedRecipe(recipe);
+  };
+
+  const handleBackToList = () => {
+    setSelectedRecipe(null);
   };
 
   return (
@@ -62,7 +72,11 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       {showRecipeForm && (
         <RecipeForm onSubmit={handleRecipeSubmit} closeOverlay={() => setShowRecipeForm(false)} />
       )}
-      <RecipeList />
+      {selectedRecipe ? (
+        <RecipeDetail recipe={selectedRecipe} user={user} onBack={handleBackToList} />
+      ) : (
+        <RecipeList user={user} onRecipeSelect={handleRecipeSelect} />
+      )}
     </div>
   );
 };
