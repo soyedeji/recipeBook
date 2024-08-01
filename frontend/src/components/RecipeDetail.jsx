@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import CommentForm from './CommentForm';
 import RecipeForm from './RecipeForm';
-// import '../styles/RecipeDetail.css';
+import '../styles/RecipeDetail.css';
 
 const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) => {
   const [reviews, setReviews] = useState([]);
