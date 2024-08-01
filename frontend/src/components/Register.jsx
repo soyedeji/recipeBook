@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
-import '../styles/Auth.css'; // Include the new styles
+import '../styles/Auth.css';
 
 const Register = ({ closeOverlay }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
-  const [role, setRole] = useState('foodie'); // default role to foodie
+  const [role, setRole] = useState('foodie');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,7 +27,6 @@ const Register = ({ closeOverlay }) => {
       });
 
       const data = await response.json();
-      alert(data.message);
       if (data.status === 'success') {
         setUsername('');
         setPassword('');

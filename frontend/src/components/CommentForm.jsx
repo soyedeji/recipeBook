@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import '../styles/CommentForm.css';
 
 const CommentForm = ({ recipeId, onSubmit }) => {
   const [comment, setComment] = useState('');

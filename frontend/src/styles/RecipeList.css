@@ -12,32 +12,35 @@
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   position: relative;
-  width: 250px;
+  width: 300px;
+  height: 400px;
   display: flex;
   flex-direction: column;
 }
 
 .recipe-image {
   width: 100%;
-  height: 180px;
+  height: 60%;
+  margin: 0;
   object-fit: cover;
 }
 
 .recipe-details {
   padding: 20px;
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .recipe-title {
   font-size: 20px;
   font-weight: bold;
-  margin-bottom: 10px;
 }
 
 .recipe-description {
   font-size: 14px;
   color: #666;
-  margin-bottom: 15px;
 }
 
 .recipe-actions {
@@ -45,13 +48,3 @@
   justify-content: space-between;
 }
 
-.favorite-button {
-  background: none;
-  border: none;
-  color: #f60;
-  cursor: pointer;
-  font-size: 24px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-}

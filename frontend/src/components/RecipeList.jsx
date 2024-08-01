@@ -43,33 +43,6 @@ const RecipeList = ({ user, onRecipeSelect }) => {
     fetchRecipes();
   }, []);
 
-  const handleEdit = (recipe) => {
-    // Implement edit logic here
-  };
-
-  const handleDelete = async (recipeId) => {
-    try {
-      const response = await fetch(`http://localhost:8000/deleteRecipe.php?id=${recipeId}`, {
-        method: 'DELETE',
-        credentials: 'include',
-      });
-
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      if (data.status === 'success') {
-        setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
-      } else {
-        setError(data.message);
-      }
-    } catch (error) {
-      console.error('There was an error deleting the recipe!', error);
-      setError('An unexpected error occurred. Please try again.');
-    }
-  };
-
   return (
     <div className="recipe-list">
       {error && <p className="error">{error}</p>}
@@ -79,7 +52,7 @@ const RecipeList = ({ user, onRecipeSelect }) => {
             <img src={`http://localhost:8000/uploads/${recipe.image}`} alt={recipe.title} className="recipe-image" />
             <div className="recipe-details">
               <h3 className="recipe-title">{recipe.title}</h3>
-              <p className="recipe-description">{truncateText(recipe.description, 20)}</p>
+              <p className="recipe-description">{truncateText(recipe.description, 12)}</p>
             </div>
           </div>
         ))

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
-import '../styles/Auth.css'; // Include the new styles
+import '../styles/Auth.css'; 
 
 const Login = ({ closeOverlay, onLogin }) => {
   const [username, setUsername] = useState('');
@@ -18,7 +18,7 @@ const Login = ({ closeOverlay, onLogin }) => {
           username,
           password,
         }),
-        credentials: 'include', // Ensure cookies are included in the request
+        credentials: 'include', 
       });
 
       if (!response.ok) {
@@ -26,9 +26,8 @@ const Login = ({ closeOverlay, onLogin }) => {
       }
 
       const data = await response.json();
-      alert(data.message);
       if (data.status === 'success') {
-        onLogin(data.user); // Pass user data to the App component
+        onLogin(data.user);
         setUsername('');
         setPassword('');
         closeOverlay();
