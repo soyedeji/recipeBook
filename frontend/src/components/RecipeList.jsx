@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import '../styles/RecipeList.css';
 
-const RecipeList = () => {
+const truncateText = (text, wordLimit) => {
+  const words = text.split(' ');
+  if (words.length > wordLimit) {
+    return words.slice(0, wordLimit).join(' ') + '...';
+  }
+  return text;
+};
+
+const RecipeList = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
 
@@ -35,22 +43,50 @@ const RecipeList = () => {
     fetchRecipes();
   }, []);
 
+  const handleEdit = (recipe) => {
+    // Implement edit logic here
+  };
+
+  const handleDelete = async (recipeId) => {
+    try {
+      const response = await fetch(`http://localhost:8000/deleteRecipe.php?id=${recipeId}`, {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      if (data.status === 'success') {
+        setRecipes(recipes.filter(recipe => recipe.id !== recipeId));
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error('There was an error deleting the recipe!', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+  };
+
   return (
     <div className="recipe-list">
       {error && <p className="error">{error}</p>}
       {recipes.length > 0 ? (
         recipes.map((recipe) => (
           <div key={recipe.id} className="recipe-card">
-            <img src={`uploads/${recipe.image}`} alt={recipe.title} className="recipe-image" />
+            <img src={`http://localhost:8000/uploads/${recipe.image}`} alt={recipe.title} className="recipe-image" />
             <div className="recipe-details">
-              <p className="recipe-category">ORANGE DESSERT RECIPES</p> {/* You can update this with actual category data */}
               <h3 className="recipe-title">{recipe.title}</h3>
-              <div className="recipe-rating">
-                <span>★★★★☆</span> {/* Replace with actual rating data */}
-                <span>22 Ratings</span> {/* Replace with actual rating count */}
-              </div>
+              <p className="recipe-description">{truncateText(recipe.description, 20)}</p>
+              {user && user.role === 'chef' && user.id === recipe.user_id && (
+                <div className="recipe-actions">
+                  <button onClick={() => handleEdit(recipe)}>Edit</button>
+                  <button onClick={() => handleDelete(recipe.id)}>Delete</button>
+                </div>
+              )}
             </div>
-            <button className="favorite-button">❤️</button>
           </div>
         ))
       ) : (

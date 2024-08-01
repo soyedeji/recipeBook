@@ -28,7 +28,7 @@ const RecipeForm = ({ onSubmit, initialData = {}, closeOverlay }) => {
         <form onSubmit={handleSubmit} className="recipe-form">
           <h2>{initialData.id ? 'Edit Recipe' : 'Add Recipe'}</h2>
           <div className="form-group">
-            <label>Title</label>
+            <label>Recipe Name</label>
             <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
           </div>
           <div className="form-group">
