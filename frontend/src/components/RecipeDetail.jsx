@@ -3,7 +3,7 @@ import CommentForm from './CommentForm';
 import RecipeForm from './RecipeForm';
 // import '../styles/RecipeDetail.css';
 
-const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate }) => {
+const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) => {
   const [reviews, setReviews] = useState([]);
   const [error, setError] = useState(null);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -64,7 +64,7 @@ const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate }) => {
 
       const data = await response.json();
       if (data.status === 'success') {
-        onBack();
+        onRecipeDelete(recipe.id);
       } else {
         setError(data.message);
       }
@@ -159,7 +159,11 @@ const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate }) => {
           )}
         </>
       ) : (
-        <RecipeForm onSubmit={handleRecipeSubmit} initialData={recipe} />
+        <RecipeForm 
+          onSubmit={handleRecipeSubmit} 
+          initialData={recipe} 
+          closeOverlay={() => setShowEditForm(false)} 
+        />
       )}
       {showDeleteModal && (
         <div className="modal">
