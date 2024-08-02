@@ -1,112 +1,111 @@
 .recipe-detail {
-    padding: 20px;
-  }
-  
-  .back-button {
-    display: inline-block;
-    margin-bottom: 20px;
-    padding: 10px 15px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
-  .back-button:hover {
-    background-color: #0056b3;
-  }
-  
-  h2 {
-    margin-bottom: 20px;
-  }
-  
-  .recipe-image {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    margin-bottom: 20px;
-  }
-  
-  .edit-delete-buttons {
-    display: flex;
-    justify-content: center;
-    margin: 20px;
-  }
-  
-  .edit-delete-buttons button {
-    padding: 10px 15px;
-    margin: 5px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  
-  }
-  
-  .edit-delete-buttons button:hover {
-    background-color: #0056b3;
-  }
-  
-  .edit-delete-buttons button:nth-child(2) {
-    background-color: #dc3545;
-  }
-  
-  .edit-delete-buttons button:nth-child(2):hover {
-    background-color: #c82333;
-  }
+  padding: 20px;
+}
 
-  .delete-buttons button {
-    padding: 10px 15px;
-    margin: 5px;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  
-  }
+.back-button {
+  display: inline-block;
+  margin-bottom: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
 
-  .delete-buttons button:nth-child(1) {
-    background-color: #dc3545;
-  }
-  
-  .delete-buttons button:nth-child(1):hover {
-    background-color: #c82333;
-  }
-  
-  .comment {
-    margin-bottom: 15px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-  }
-  
-  .error {
-    color: red;
-    margin-top: 10px;
-  }
-  
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    text-align: center;
-  }
-  
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.recipe-image {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.edit-delete-buttons {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.edit-delete-buttons button {
+  padding: 10px 15px;
+  margin: 5px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+.edit-delete-buttons button:hover {
+  background-color: #0056b3;
+}
+
+.edit-delete-buttons button:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.edit-delete-buttons button:nth-child(2):hover {
+  background-color: #c82333;
+}
+
+.delete-buttons button {
+  padding: 10px 15px;
+  margin: 5px;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+
+}
+
+.delete-buttons button:nth-child(1) {
+  background-color: #dc3545;
+}
+
+.delete-buttons button:nth-child(1):hover {
+  background-color: #c82333;
+}
+
+.comment {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+}

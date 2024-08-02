@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RecipeList from './RecipeList';
 import RecipeDetail from './RecipeDetail';
 import RecipeForm from './RecipeForm';
+import RandomRecipe from './RandomRecipe';
 import '../styles/Home.css';
 
 const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
@@ -103,7 +104,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
           )}
           {user && (
             <>
-              <p>Logged in as {user.role === 'chef' ? `Chef ${user.firstname} ${user.lastname}` : `Foodie ${user.firstname} ${user.lastname}`}</p>
+              <p>Logged in as {user.role === 'chef' ? `Chef ${user.firstname}` : `Foodie ${user.firstname}`}</p>
               {user.role === 'chef' && (
                 <button onClick={handleAddRecipeClick}>Add Recipe</button>
               )}
@@ -112,6 +113,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
           )}
         </div>
       </nav>
+      <RandomRecipe />
       {error && <p className="error">{error}</p>}
       {showRecipeForm && (
         <RecipeForm onSubmit={handleRecipeSubmit} closeOverlay={() => setShowRecipeForm(false)} />
