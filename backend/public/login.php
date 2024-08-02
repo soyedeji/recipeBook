@@ -4,6 +4,8 @@ header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type');
 header('Access-Control-Allow-Credentials: true');
 
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(204);
     exit;
@@ -19,15 +21,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
-        session_start();
         $_SESSION['user_id'] = $user['id'];
+        $_SESSION['username'] = $user['username'];
         $_SESSION['role'] = $user['role'];
-        echo json_encode(['status' => 'success', 'user' => ['id' => $user['id'], 'role' => $user['role']]]);
+        echo json_encode(['status' => 'success', 'message' => 'Login successful', 'user' => $user]);
     } else {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid credentials']);
+        echo json_encode(['status' => 'error', 'message' => 'Incorrect username or password']);
     }
 }
 ?>

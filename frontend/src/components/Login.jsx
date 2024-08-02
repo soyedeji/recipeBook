@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
-import '../styles/Auth.css'; 
 
 const Login = ({ closeOverlay, onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // Add state for error message
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +18,7 @@ const Login = ({ closeOverlay, onLogin }) => {
           username,
           password,
         }),
-        credentials: 'include', 
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -30,10 +30,14 @@ const Login = ({ closeOverlay, onLogin }) => {
         onLogin(data.user);
         setUsername('');
         setPassword('');
+        setErrorMessage(''); // Clear error message on successful login
         closeOverlay();
+      } else {
+        setErrorMessage(data.message); // Set error message on login failure
       }
     } catch (error) {
       console.error('There was an error logging in!', error);
+      setErrorMessage('An unexpected error occurred. Please try again.'); // Set error message on network error
     }
   };
 
@@ -43,6 +47,7 @@ const Login = ({ closeOverlay, onLogin }) => {
         <button className="close-button" onClick={closeOverlay}>X</button>
         <form onSubmit={handleSubmit} className="auth-form">
           <h2>Login</h2>
+          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
           <div className="form-group">
             <label>Username</label>
             <input
