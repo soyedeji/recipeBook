@@ -128,6 +128,33 @@ const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) 
     }
   };
 
+  const handleDeleteReview = async (reviewID) => {
+    try {
+      const response = await fetch('http://localhost:8000/deleteComment.php', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ commentID: reviewID }),
+        credentials: 'include',
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      if (data.status === 'success') {
+        setReviews(reviews.filter(review => review.reviewID !== reviewID));
+      } else {
+        setError(data.message);
+      }
+    } catch (error) {
+      console.error('There was an error deleting the review!', error);
+      setError('An unexpected error occurred. Please try again.');
+    }
+  };
+
   return (
     <div className="recipe-detail">
       <button onClick={onBack} className="back-button">Back to Recipes</button>
@@ -152,6 +179,11 @@ const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) 
             <div key={review.reviewID} className="comment">
               <p><strong>{review.username}:</strong> {review.comment}</p>
               <p>Posted on: {new Date(review.createdAt).toLocaleString()}</p>
+              {user && user.role === 'chef' && (
+                <div className="delete-buttons">
+                  <button onClick={() => handleDeleteReview(review.reviewID)}>Delete</button>
+                </div>                
+              )}
             </div>
           ))}
           {user && user.role === 'foodie' && (
