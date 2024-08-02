@@ -103,7 +103,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
           )}
           {user && (
             <>
-              <p>Logged in as {user.role === 'chef' ? 'Chef' : 'Foodie'}</p>
+              <p>Logged in as {user.role === 'chef' ? `Chef ${user.firstname} ${user.lastname}` : `Foodie ${user.firstname} ${user.lastname}`}</p>
               {user.role === 'chef' && (
                 <button onClick={handleAddRecipeClick}>Add Recipe</button>
               )}
