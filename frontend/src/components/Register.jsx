@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import '../styles/Overlay.css';
-import '../styles/Auth.css';
+import '../styles/Register.css'; 
 
 const Register = ({ closeOverlay }) => {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [role, setRole] = useState('foodie');
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
     try {
       const response = await fetch('http://localhost:8000/register.php', {
         method: 'POST',
@@ -19,7 +26,9 @@ const Register = ({ closeOverlay }) => {
         },
         body: JSON.stringify({
           username,
+          email,
           password,
+          confirmPassword,
           firstname,
           lastname,
           role,
@@ -29,14 +38,20 @@ const Register = ({ closeOverlay }) => {
       const data = await response.json();
       if (data.status === 'success') {
         setUsername('');
+        setEmail('');
         setPassword('');
+        setConfirmPassword('');
         setFirstname('');
         setLastname('');
         setRole('foodie');
+        setError(null);
         closeOverlay();
+      } else {
+        setError(data.message);
       }
     } catch (error) {
       console.error('There was an error registering!', error);
+      setError('An unexpected error occurred. Please try again.');
     }
   };
 
@@ -44,6 +59,7 @@ const Register = ({ closeOverlay }) => {
     <div className="overlay">
       <div className="overlay-content">
         <button className="close-button" onClick={closeOverlay}>X</button>
+        {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit} className="auth-form">
           <h2>Register</h2>
           <div className="form-group">
@@ -74,11 +90,29 @@ const Register = ({ closeOverlay }) => {
             />
           </div>
           <div className="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label>Confirm Password</label>
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
           </div>
