@@ -10,15 +10,16 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch('http://localhost:8000/getRecipes.php', {
+      const response = await fetch(`http://localhost:8000/getRecipes.php?search=${searchQuery}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
+        credentials: 'include', // Ensure credentials are included
       });
 
       if (!response.ok) {
@@ -39,7 +40,12 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
 
   useEffect(() => {
     fetchRecipes();
-  }, []);
+  }, [searchQuery]);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearchQuery(e.target.value);
+  };
 
   const handleAddRecipeClick = () => {
     setShowRecipeForm(true);
@@ -113,6 +119,14 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
           )}
         </div>
       </nav>
+      <form className="search-form" onSubmit={handleSearch}>
+        <input 
+          type="text" 
+          placeholder="Search for recipes..." 
+          value={searchQuery || ''} 
+          onChange={(e) => setSearchQuery(e.target.value)} 
+        />
+      </form>
       <RandomRecipe />
       {error && <p className="error">{error}</p>}
       {showRecipeForm && (

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import '../styles/RecipeList.css';
 
 const truncateText = (text, wordLimit) => {
@@ -9,43 +9,9 @@ const truncateText = (text, wordLimit) => {
   return text;
 };
 
-const RecipeList = ({ user, onRecipeSelect }) => {
-  const [recipes, setRecipes] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const response = await fetch('http://localhost:8000/getRecipes.php', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        if (data.status === 'success') {
-          setRecipes(data.recipes);
-        } else {
-          setError(data.message);
-        }
-      } catch (error) {
-        console.error('There was an error fetching the recipes!', error);
-        setError('An unexpected error occurred. Please try again.');
-      }
-    };
-
-    fetchRecipes();
-  }, []);
-
+const RecipeList = ({ recipes, onRecipeSelect }) => {
   return (
     <div className="recipe-list">
-      {error && <p className="error">{error}</p>}
       {recipes.length > 0 ? (
         recipes.map((recipe) => (
           <div key={recipe.id} className="recipe-card" onClick={() => onRecipeSelect(recipe)}>
