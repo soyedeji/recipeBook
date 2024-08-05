@@ -1,5 +1,9 @@
 /* Register.css */
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .overlay {
   position: fixed;
   top: 0;
@@ -21,6 +25,18 @@
   width: 100%;
   max-width: 400px;
   position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .close-button {
@@ -29,9 +45,14 @@
   right: 10px;
   background: none;
   border: none;
-  font-size: 20px;
+  font-size: 24px;
   cursor: pointer;
   color: #333;
+  transition: color 0.3s ease;
+}
+
+.close-button:hover {
+  color: #007bff;
 }
 
 .auth-form {
@@ -48,30 +69,29 @@
 
 .form-group {
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .form-group label {
-  display: block;
   margin-bottom: 5px;
   color: #333;
+  font-size: 14px;
 }
 
 .form-group input,
 .form-group select {
-  width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-}
-
-.form-group input[type="password"] {
-  font-size: 16px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .form-group input:focus,
 .form-group select:focus {
   border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   outline: none;
 }
 
@@ -83,6 +103,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
   margin-top: 10px;
 }
 
@@ -94,4 +115,5 @@
   color: red;
   text-align: center;
   margin-bottom: 10px;
+  font-size: 14px;
 }
