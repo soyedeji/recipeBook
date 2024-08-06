@@ -11,6 +11,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require 'config.php';
 
+function sanitizeInput($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
 
@@ -21,14 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user_id = $_SESSION['user_id'];
     $data = json_decode(file_get_contents("php://input"), true);
-
-    // sanitize inputs
     $recipe_id = filter_var($data['recipeId'], FILTER_VALIDATE_INT);
-    $comment = filter_var($data['comment'], FILTER_SANITIZE_STRING);
+    $comment = sanitizeInput($data['comment']);
 
-    // validate inputs
-    if (!$recipe_id || empty($comment)) {
-        echo json_encode(['status' => 'error', 'message' => 'Invalid input.']);
+    if (!$recipe_id || !$comment) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
         exit;
     }
 
