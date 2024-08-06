@@ -21,8 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $user_id = $_SESSION['user_id'];
     $data = json_decode(file_get_contents("php://input"), true);
-    $recipe_id = $data['recipeId'];
-    $comment = $data['comment'];
+
+    // sanitize inputs
+    $recipe_id = filter_var($data['recipeId'], FILTER_VALIDATE_INT);
+    $comment = filter_var($data['comment'], FILTER_SANITIZE_STRING);
+
+    // validate inputs
+    if (!$recipe_id || empty($comment)) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid input.']);
+        exit;
+    }
 
     try {
         $stmt = $pdo->prepare("INSERT INTO reviews (recipe_id, user_id, comment) VALUES (?, ?, ?)");

@@ -10,16 +10,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require 'config.php';
 
+function sanitizeInput($data) {
+    return htmlspecialchars(strip_tags(trim($data)));
+}
+
 $data = json_decode(file_get_contents("php://input"), true);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $data['username'];
-    $email = $data['email'];
-    $password = $data['password'];
-    $confirmPassword = $data['confirmPassword'];
-    $firstname = $data['firstname'];
-    $lastname = $data['lastname'];
-    $role = $data['role'];
+    $username = isset($data['username']) ? sanitizeInput($data['username']) : null;
+    $email = isset($data['email']) ? filter_var(sanitizeInput($data['email']), FILTER_VALIDATE_EMAIL) : null;
+    $password = isset($data['password']) ? $data['password'] : null;
+    $confirmPassword = isset($data['confirmPassword']) ? $data['confirmPassword'] : null;
+    $firstname = isset($data['firstname']) ? sanitizeInput($data['firstname']) : null;
+    $lastname = isset($data['lastname']) ? sanitizeInput($data['lastname']) : null;
+    $role = isset($data['role']) ? sanitizeInput($data['role']) : 'foodie';
+
+    if (!$username || !$email || !$password || !$confirmPassword || !$firstname || !$lastname || !$role) {
+        echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
+        exit;
+    }
 
     if ($password !== $confirmPassword) {
         echo json_encode(['status' => 'error', 'message' => 'Passwords do not match']);

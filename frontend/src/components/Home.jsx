@@ -71,6 +71,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
         setRecipes([...recipes, data.recipe]);
         setShowRecipeForm(false);
         setError(null);
+        window.location.reload(); // Reload the page
       } else {
         setError(data.message);
       }

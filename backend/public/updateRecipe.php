@@ -11,6 +11,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require 'config.php';
 
+function sanitizeInput($data) {
+    return htmlspecialchars(strip_tags(trim($data)));
+}
+
+function validateImage($file) {
+    $validMimes = ['image/jpeg', 'image/png', 'image/gif'];
+    return in_array($file['type'], $validMimes);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
 
@@ -20,15 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $user_id = $_SESSION['user_id'];
-    $recipe_id = $_POST['id'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $ingredients = $_POST['ingredients'];
-    $steps = $_POST['steps'];
+    $recipe_id = isset($_POST['id']) ? (int) $_POST['id'] : null;
+    $title = isset($_POST['title']) ? sanitizeInput($_POST['title']) : null;
+    $description = isset($_POST['description']) ? sanitizeInput($_POST['description']) : null;
+    $ingredients = isset($_POST['ingredients']) ? sanitizeInput($_POST['ingredients']) : null;
+    $steps = isset($_POST['steps']) ? sanitizeInput($_POST['steps']) : null;
 
-    $image = isset($_FILES['image']) ? $_FILES['image']['name'] : null;
+    if (!$title || !$description || !$ingredients || !$steps || !$recipe_id) {
+        echo json_encode(['status' => 'error', 'message' => 'Invalid input']);
+        exit;
+    }
 
-    // Handle image upload
+    $image = isset($_FILES['image']) && validateImage($_FILES['image']) ? $_FILES['image']['name'] : null;
+
+    // image upload
     if ($image) {
         $target_dir = "uploads/";
         $target_file = $target_dir . basename($image);

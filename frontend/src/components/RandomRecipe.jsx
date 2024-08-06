@@ -16,7 +16,6 @@ const RandomRecipe = () => {
       }
       const data = await response.json();
       setRandomRecipe(data.recipes[0]);
-      console.log(data.recipes[0].instructions)
     } catch (error) {
       console.error('There was an error fetching the random recipe!', error);
       setError('An unexpected error occurred. Please try again.');

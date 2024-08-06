@@ -49,7 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         $stmt = $pdo->prepare("INSERT INTO recipes (user_id, title, description, ingredients, steps, image) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->execute([$user_id, $title, $description, $ingredients, $steps, $imageName]);
-        echo json_encode(['status' => 'success', 'message' => 'Recipe added successfully']);
+        $newRecipeId = $pdo->lastInsertId();
+        $stmt = $pdo->prepare("SELECT * FROM recipes WHERE id = ?");
+        $stmt->execute([$newRecipeId]);
+        $newRecipe = $stmt->fetch(PDO::FETCH_ASSOC);
+        echo json_encode(['status' => 'success', 'recipe' => $newRecipe]);
     } catch (PDOException $e) {
         error_log($e->getMessage());
         echo json_encode(['status' => 'error', 'message' => 'Database error: ' . $e->getMessage()]);
