@@ -11,10 +11,12 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
   const [recipes, setRecipes] = useState([]);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchRecipes = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/getRecipes.php?search=${searchQuery}`, {
+      const response = await fetch(`http://localhost:8000/getRecipes.php?search=${searchQuery}&page=${page}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -29,6 +31,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       const data = await response.json();
       if (data.status === 'success') {
         setRecipes(data.recipes);
+        setTotalPages(data.pages);
       } else {
         setError(data.message);
       }
@@ -40,7 +43,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
 
   useEffect(() => {
     fetchRecipes();
-  }, [searchQuery]);
+  }, [searchQuery, page]);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -97,6 +100,18 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
     fetchRecipes();
   };
 
+  const handlePreviousPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
   return (
     <div className="home-container">
       <nav>
@@ -141,10 +156,23 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
           onRecipeDelete={handleRecipeDelete}
         />
       ) : (
-        <RecipeList 
-          recipes={recipes} 
-          onRecipeSelect={handleRecipeSelect}
-        />
+        <>
+          <RecipeList 
+            recipes={recipes} 
+            onRecipeSelect={handleRecipeSelect}
+          />
+          {totalPages > 1 && (
+            <div className="pagination">
+              <button onClick={handlePreviousPage} disabled={page === 1}>
+                Previous
+              </button>
+              <span>Page {page} of {totalPages}</span>
+              <button onClick={handleNextPage} disabled={page === totalPages}>
+                Next
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );
