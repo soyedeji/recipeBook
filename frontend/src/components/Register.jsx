@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/Register.css'; 
+import { Overlay, OverlayContent, CloseButton, AuthForm, AuthFormTitle, FormGroup, FormLabel, FormInput, FormSelect, SubmitButton, ErrorMessage } from '../styles/StyledRegister'; 
 
 const Register = ({ closeOverlay }) => {
   const [username, setUsername] = useState('');
@@ -55,77 +55,77 @@ const Register = ({ closeOverlay }) => {
   };
 
   return (
-    <div className="overlay">
-      <div className="overlay-content">
-        <button className="close-button" onClick={closeOverlay}>X</button>
-        {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit} className="auth-form">
-          <h2>Register</h2>
-          <div className="form_group">
-            <label>Firstname</label>
-            <input
+    <Overlay>
+      <OverlayContent>
+        <CloseButton onClick={closeOverlay}>X</CloseButton>
+        {error && <ErrorMessage>{error}</ErrorMessage>}
+        <AuthForm onSubmit={handleSubmit}>
+          <AuthFormTitle>Register</AuthFormTitle>
+          <FormGroup>
+            <FormLabel>Firstname</FormLabel>
+            <FormInput
               type="text"
               value={firstname}
               onChange={(e) => setFirstname(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Lastname</label>
-            <input
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Lastname</FormLabel>
+            <FormInput
               type="text"
               value={lastname}
               onChange={(e) => setLastname(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Username</label>
-            <input
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Username</FormLabel>
+            <FormInput
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Email</label>
-            <input
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Email</FormLabel>
+            <FormInput
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Password</label>
-            <input
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Password</FormLabel>
+            <FormInput
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Confirm Password</label>
-            <input
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Confirm Password</FormLabel>
+            <FormInput
               type="password"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
             />
-          </div>
-          <div className="form_group">
-            <label>Role</label>
-            <select value={role} onChange={(e) => setRole(e.target.value)}>
+          </FormGroup>
+          <FormGroup>
+            <FormLabel>Role</FormLabel>
+            <FormSelect value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="foodie">Foodie</option>
               <option value="chef">Chef</option>
-            </select>
-          </div>
-          <button type="submit" className="submit-button">Register</button>
-        </form>
-      </div>
-    </div>
+            </FormSelect>
+          </FormGroup>
+          <SubmitButton type="submit">Register</SubmitButton>
+        </AuthForm>
+      </OverlayContent>
+    </Overlay>
   );
 };
 
