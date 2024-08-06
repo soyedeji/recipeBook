@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import RecipeList from './RecipeList';
 import RecipeDetail from './RecipeDetail';
-import RecipeForm from './RecipeForm';
+import AddRecipeForm from './AddRecipeForm';
 import RandomRecipe from './RandomRecipe';
 import '../styles/Home.css';
 
@@ -19,7 +19,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Ensure credentials are included
+        credentials: 'include',
       });
 
       if (!response.ok) {
@@ -130,7 +130,7 @@ const Home = ({ user, onLoginClick, onRegisterClick, onLogout }) => {
       <RandomRecipe />
       {error && <p className="error">{error}</p>}
       {showRecipeForm && (
-        <RecipeForm onSubmit={handleRecipeSubmit} closeOverlay={() => setShowRecipeForm(false)} />
+        <AddRecipeForm onSubmit={handleRecipeSubmit} closeOverlay={() => setShowRecipeForm(false)} />
       )}
       {selectedRecipe ? (
         <RecipeDetail 

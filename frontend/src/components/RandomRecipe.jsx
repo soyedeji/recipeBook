@@ -31,14 +31,13 @@ const RandomRecipe = () => {
     <div className="random-recipe-container">
       {error && <p className="error">{error}</p>}
       {randomRecipe ? (
-        <div className="recipe-card">
+        <div className="recipe-card-random">
           <div className="recipe-left">
             <h2>Recipe of the Day</h2>
             <img src={randomRecipe.image} alt={randomRecipe.title} className="recipe-image" />
           </div>
           <div className="recipe-right">
             <h3>{randomRecipe.title}</h3>
-            {/* <p className="random-recipe-instructions">{randomRecipe.instructions}</p> */}
             <div
               className="random-recipe-instructions"
               dangerouslySetInnerHTML={{ __html: randomRecipe.instructions }}

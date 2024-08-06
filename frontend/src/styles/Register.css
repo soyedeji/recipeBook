@@ -1,9 +1,3 @@
-/* Register.css */
-
-body {
-  font-family: 'Roboto', sans-serif;
-}
-
 .overlay {
   position: fixed;
   top: 0;
@@ -67,20 +61,20 @@ body {
   color: #333;
 }
 
-.form-group {
+.form_group {
   margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
 
-.form-group label {
+.form_group label {
   margin-bottom: 5px;
   color: #333;
   font-size: 14px;
 }
 
-.form-group input,
-.form-group select {
+.form_group input,
+.form_group select {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -88,8 +82,8 @@ body {
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.form_group input:focus,
+.form_group select:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   outline: none;
@@ -97,7 +91,7 @@ body {
 
 .submit-button {
   padding: 10px 15px;
-  background-color: #007bff;
+  background-color: #3f51b5;;
   color: white;
   border: none;
   border-radius: 5px;
@@ -108,7 +102,7 @@ body {
 }
 
 .submit-button:hover {
-  background-color: #0056b3;
+  background-color: rgb(6, 66, 131);;
 }
 
 .error {

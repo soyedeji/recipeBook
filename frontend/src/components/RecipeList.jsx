@@ -15,7 +15,7 @@ const RecipeList = ({ recipes, onRecipeSelect }) => {
       {recipes.length > 0 ? (
         recipes.map((recipe) => (
           <div key={recipe.id} className="recipe-card" onClick={() => onRecipeSelect(recipe)}>
-            <img src={`http://localhost:8000/uploads/${recipe.image}`} alt={recipe.title} className="recipe-image" />
+            <img src={`http://localhost:8000/uploads/${recipe.image}`} alt={recipe.title} className="recipe_image" />
             <div className="recipe-details">
               <h3 className="recipe-title">{recipe.title}</h3>
               <p className="recipe-description">{truncateText(recipe.description, 12)}</p>

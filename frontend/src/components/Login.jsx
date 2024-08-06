@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import '../styles/Overlay.css';
+import '../styles/Register.css'; 
+
 
 const Login = ({ closeOverlay, onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); // Add state for error message
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,14 +31,14 @@ const Login = ({ closeOverlay, onLogin }) => {
         onLogin(data.user);
         setUsername('');
         setPassword('');
-        setErrorMessage(''); // Clear error message on successful login
+        setErrorMessage(''); 
         closeOverlay();
       } else {
-        setErrorMessage(data.message); // Set error message on login failure
+        setErrorMessage(data.message); 
       }
     } catch (error) {
       console.error('There was an error logging in!', error);
-      setErrorMessage('An unexpected error occurred. Please try again.'); // Set error message on network error
+      setErrorMessage('An unexpected error occurred. Please try again.'); 
     }
   };
 
@@ -47,8 +48,8 @@ const Login = ({ closeOverlay, onLogin }) => {
         <button className="close-button" onClick={closeOverlay}>X</button>
         <form onSubmit={handleSubmit} className="auth-form">
           <h2>Login</h2>
-          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Display error message */}
-          <div className="form-group">
+          {errorMessage && <p className="error-message">{errorMessage}</p>}
+          <div className="form_group">
             <label>Username</label>
             <input
               type="text"
@@ -57,7 +58,7 @@ const Login = ({ closeOverlay, onLogin }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Password</label>
             <input
               type="password"

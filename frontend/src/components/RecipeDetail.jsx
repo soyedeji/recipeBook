@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CommentForm from './CommentForm';
-import RecipeForm from './RecipeForm';
+import AddRecipeForm from './AddRecipeForm';
 import '../styles/RecipeDetail.css';
 
 const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) => {
@@ -191,7 +191,7 @@ const RecipeDetail = ({ recipe, user, onBack, onRecipeUpdate, onRecipeDelete }) 
           )}
         </>
       ) : (
-        <RecipeForm 
+        <AddRecipeForm 
           onSubmit={handleRecipeSubmit} 
           initialData={recipe} 
           closeOverlay={() => setShowEditForm(false)} 

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/Overlay.css';
 import '../styles/Register.css'; 
 
 const Register = ({ closeOverlay }) => {
@@ -62,7 +61,7 @@ const Register = ({ closeOverlay }) => {
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit} className="auth-form">
           <h2>Register</h2>
-          <div className="form-group">
+          <div className="form_group">
             <label>Firstname</label>
             <input
               type="text"
@@ -71,7 +70,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Lastname</label>
             <input
               type="text"
@@ -80,7 +79,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Username</label>
             <input
               type="text"
@@ -89,7 +88,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Email</label>
             <input
               type="email"
@@ -98,7 +97,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Password</label>
             <input
               type="password"
@@ -107,7 +106,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Confirm Password</label>
             <input
               type="password"
@@ -116,7 +115,7 @@ const Register = ({ closeOverlay }) => {
               required
             />
           </div>
-          <div className="form-group">
+          <div className="form_group">
             <label>Role</label>
             <select value={role} onChange={(e) => setRole(e.target.value)}>
               <option value="foodie">Foodie</option>
