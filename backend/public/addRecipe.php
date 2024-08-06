@@ -16,6 +16,10 @@ function isImage($file) {
     return in_array($file['type'], $imageMimes);
 }
 
+function sanitizeInput($data) {
+    return htmlspecialchars(trim($data), ENT_QUOTES, 'UTF-8');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
 
@@ -25,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $user_id = $_SESSION['user_id'];
-    $title = $_POST['title'];
-    $description = $_POST['description'];
-    $ingredients = $_POST['ingredients'];
-    $steps = $_POST['steps'];
+    $title = sanitizeInput($_POST['title']);
+    $description = sanitizeInput($_POST['description']);
+    $ingredients = sanitizeInput($_POST['ingredients']);
+    $steps = sanitizeInput($_POST['steps']);
 
     $imageName = null;
     if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
